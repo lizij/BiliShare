@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.jungly.socialize:biliShare:0.1.0701'
+//    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.0.0'
+    compileOnly 'com.jungly.socialize:biliShare:0.1.0701'
 }
