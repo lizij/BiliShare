@@ -64,20 +64,20 @@
             android:layout_marginTop="8dp"/>
 
         <Button
-            android:id="@+id/btn1"
+            android:id="@+id/share_with_dialog_bt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="分享（dialog）"/>
 
         <Button
-            android:id="@+id/btn2"
+            android:id="@+id/share_with_full_pop_bt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="分享（Full pop）"/>
 
         <Button
-            android:id="@+id/btn3"
+            android:id="@+id/share_with_wrap_pop_bt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

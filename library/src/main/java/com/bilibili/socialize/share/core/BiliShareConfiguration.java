@@ -39,10 +39,18 @@ import java.util.concurrent.Executors;
 public class BiliShareConfiguration implements Parcelable {
 
     private String mImageCachePath;
+
+    // 默认分享图的id
     private int mDefaultShareImage;
 
+
+    // 图片下载器
     private IImageDownloader mImageDownloader;
+
+    // 执行器
     private Executor mTaskExecutor;
+
+    // 分享平台config
     private SharePlatformConfig mPlatformConfig;
 
     private BiliShareConfiguration(Builder builder) {

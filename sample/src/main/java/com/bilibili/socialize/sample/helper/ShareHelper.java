@@ -22,7 +22,7 @@ import com.bilibili.socialize.share.utils.selector.PopWrapSharePlatformSelector;
 
 /**
  * Helper
- *
+ * 分享管理
  * @author yrom & Jungly.
  */
 public final class ShareHelper {
@@ -45,12 +45,16 @@ public final class ShareHelper {
         if (context == null) {
             throw new NullPointerException();
         }
+
+        // 构建配置文件
         BiliShareConfiguration configuration = new BiliShareConfiguration.Builder(context)
                 .imageDownloader(new ShareFrescoImageDownloader())
                 .qq(QQ_APPID)
                 .weixin(WECHAT_APPID)
                 .sina(SINA_APPKEY, null, null)
                 .build();
+
+        // 注册配置文件
         shareClient().config(configuration);
     }
 
@@ -142,16 +146,21 @@ public final class ShareHelper {
     }
 
     public static BiliShare shareClient()  {
+        // 获取全局分享单例
         return BiliShare.global();
     }
 
     public interface Callback {
+        // 获取分享内容
         BaseShareParam getShareContent(ShareHelper helper, SocializeMedia target);
 
+        // 分享开始
         void onShareStart(ShareHelper helper);
 
+        // 分享完成
         void onShareComplete(ShareHelper helper, int code);
 
+        // 取消
         void onDismiss(ShareHelper helper);
     }
 

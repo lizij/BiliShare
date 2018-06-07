@@ -27,14 +27,19 @@ import com.bilibili.socialize.share.core.error.ShareException;
  */
 public interface IImageDownloader {
 
+    // 图片下载
     void download(Context context, String imageUrl, String targetFileDirPath, OnImageDownloadListener listener) throws ShareException;
 
+    // 图片下载监听器
     interface OnImageDownloadListener {
 
+        // 开始
         void onStart();
 
+        // 成功
         void onSuccess(String filePath);
 
+        // 失败
         void onFailed(String url);
 
     }

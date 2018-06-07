@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * 使用fresco实现的分享图片下载器
  * @author Jungly
  * @email jungly.ik@gmail.com
  * @since 2016/2/7
@@ -45,22 +46,40 @@ public class ShareFrescoImageDownloader extends AbsImageDownloader {
         if (listener != null)
             listener.onStart();
 
+        // ImageRequest存储着Image Pipeline处理被请求图片所需要的有用信息(Uri、是否渐进式图片、是否返回缩略图、缩放、是否自动旋转等)。
+        // fromUri使用了一个简单的builder创建ImageRequest
         final ImageRequest request = ImageRequest.fromUri(imageUrl);
+
+        // 获取已解码的图片
         DataSource<CloseableReference<CloseableImage>> dataSource =
                 Fresco.getImagePipeline().fetchDecodedImage(request, null);
+
+        // dataSource被BaseDataSubscriber订阅，保证dataSource在使用后可以被自动关闭
+        // 参考https://www.fresco-cn.org/docs/datasources-datasubscribers.html
         dataSource.subscribe(new BaseDataSubscriber<CloseableReference<CloseableImage>>() {
 
             @Override
             protected void onNewResultImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
+                // 回调执行后，dataSource就会被释放，尽量不要使用外部引用，防止内存泄漏
+                if (!dataSource.isFinished()) {
+                    return;
+                }
                 CloseableReference<CloseableImage> result = dataSource.getResult();
                 if (result != null) {
-                    ImageRequest imageRequest = ImageRequest.fromUri(imageUrl);
+//                    ImageRequest imageRequest = ImageRequest.fromUri(imageUrl);
+                    ImageRequest imageRequest = request;
+
+                    // 从未解码缓存中获取key
                     CacheKey cacheKey = DefaultCacheKeyFactory.getInstance()
                             .getEncodedCacheKey(imageRequest);
+
+                    // 根据key，从磁盘中获取资源的BinaryResource二进制流
                     BinaryResource resource = Fresco.getImagePipelineFactory()
                             .getMainDiskStorageCache()
                             .getResource(cacheKey);
+
                     if (resource instanceof FileBinaryResource) {
+                        // 如果是文件二进制流，转换为File对象，并写入filePath所在目录
                         File cacheFile = ((FileBinaryResource) resource).getFile();
                         try {
                             FileUtil.copyFile(cacheFile, new File(filePath));
@@ -82,7 +101,7 @@ public class ShareFrescoImageDownloader extends AbsImageDownloader {
                 if (listener != null)
                     listener.onFailed(imageUrl);
             }
-
+        // 在UI线程上执行
         }, UiThreadImmediateExecutorService.getInstance());
     }
 

@@ -24,7 +24,6 @@ import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * 这个类只是为了演示如何分享，如果想体验分享效果，请下载哔哩哔哩动画app。
@@ -41,13 +40,11 @@ public class MainActivity extends BaseShareableActivity {
 
     private RadioButton mTextRB, mImageRB, mWebPageRB, mAudioRB, mVideoRB;
 
-    private Unbinder unbinder;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        unbinder = ButterKnife.bind(this);
+        ButterKnife.bind(this);
         setUpViews();
     }
 
@@ -101,17 +98,17 @@ public class MainActivity extends BaseShareableActivity {
         return image;
     }
 
-    @OnClick(R.id.btn1)
+    @OnClick(R.id.share_with_dialog_bt)
     void shareWithDialogSelector() {
         startShare(null);
     }
 
-    @OnClick(R.id.btn2)
+    @OnClick(R.id.share_with_full_pop_bt)
     void shareWithFullPopSelector(View clickView) {
         startShare(clickView, true);
     }
 
-    @OnClick(R.id.btn3)
+    @OnClick(R.id.share_with_wrap_pop_bt)
     void shareWithWrapPopSelector(View clickView) {
         startShare(clickView, false);
     }
@@ -119,6 +116,6 @@ public class MainActivity extends BaseShareableActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbinder.unbind();
+        ButterKnife.unbind(this);
     }
 }

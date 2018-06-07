@@ -41,6 +41,8 @@ public abstract class AbsImageDownloader implements IImageDownloader {
             }
         } else {
             String filePath = createFileIfNeed(context, imageUrl, targetFileDirPath);
+
+            // 无法创建文件
             if (TextUtils.isEmpty(filePath)) {
                 Log.e(TAG, "create image file failed");
                 if (listener != null) {
@@ -50,6 +52,8 @@ public abstract class AbsImageDownloader implements IImageDownloader {
             }
 
             File targetFile = new File(filePath);
+
+            // 目标文件已存在
             if (targetFile.exists()) {
                 Log.d(TAG, "image already downloaded");
                 if (listener != null) {
@@ -62,6 +66,7 @@ public abstract class AbsImageDownloader implements IImageDownloader {
         }
     }
 
+    // 直接下载
     protected abstract void downloadDirectly(String imageUrl, String filePath, OnImageDownloadListener listener);
 
     protected String createFileIfNeed(Context context, String imageUrl, String targetFileDirPath) throws ShareException {
