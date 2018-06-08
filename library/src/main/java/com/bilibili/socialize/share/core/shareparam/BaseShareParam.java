@@ -23,14 +23,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 分享参数
  * @author Jungly
  * @email jungly.ik@gmail.com
  * @since 2015/10/8
  */
 public abstract class BaseShareParam implements Parcelable {
 
+    // 标题
     protected String mTitle;
+    // 内容
     protected String mContent;
+    // 目标url
     protected String mTargetUrl;
 
     private Map<String, Object> mExtraMap = new HashMap<>();
