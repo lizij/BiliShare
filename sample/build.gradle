@@ -37,4 +37,5 @@ dependencies {
         exclude group: 'com.nineoldandroids', module: 'library'
     }
     implementation 'com.jakewharton:butterknife:7.0.1'
+
 }

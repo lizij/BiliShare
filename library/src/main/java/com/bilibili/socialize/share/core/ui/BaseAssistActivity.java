@@ -38,8 +38,7 @@ public abstract class BaseAssistActivity<H extends BaseShareHandler> extends Act
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         resolveParams();
-        boolean bingo = true;
-        bingo = checkConfigArgs();
+        boolean bingo = checkConfigArgs();
         if (bingo) {
             bingo = checkSocializeArgs();
         }

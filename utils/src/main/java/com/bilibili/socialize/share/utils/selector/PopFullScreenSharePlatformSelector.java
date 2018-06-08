@@ -104,7 +104,7 @@ public class PopFullScreenSharePlatformSelector extends BaseSharePlatformSelecto
         mContainerView.setOnClickListener(this);
 
         mShareWindow = new PopupWindow(mContainerView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT, true);
-        grid.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        grid.setBackground(new ColorDrawable(Color.WHITE));
         mShareWindow.setOutsideTouchable(true);
         mShareWindow.setAnimationStyle(-1);
         mShareWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {

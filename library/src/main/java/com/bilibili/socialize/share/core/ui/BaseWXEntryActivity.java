@@ -48,6 +48,9 @@ public abstract class BaseWXEntryActivity extends Activity implements IWXAPIEven
     }
 
     private void initWXApi() {
+        /**
+         * 初始化微信API
+         */
         mIWXAPI = WXAPIFactory.createWXAPI(this, getAppId(), true);
         if (mIWXAPI.isWXAppInstalled()) {
             mIWXAPI.registerApp(getAppId());
@@ -72,6 +75,9 @@ public abstract class BaseWXEntryActivity extends Activity implements IWXAPIEven
 
     @Override
     public void onReq(BaseReq baseReq) {
+        /**
+         * 微信发送的请求会回调到此方法
+         */
         Log.d(TAG, "onReq");
         if (isAutoFinishAfterOnReq()) {
             finish();
@@ -80,6 +86,9 @@ public abstract class BaseWXEntryActivity extends Activity implements IWXAPIEven
 
     @Override
     public void onResp(BaseResp resp) {
+        /**
+         * 分享成功后会调用这个方法
+         */
         Log.d(TAG, "onResp");
         parseResult(resp);
         if (isAutoFinishAfterOnResp()) {
@@ -113,6 +122,9 @@ public abstract class BaseWXEntryActivity extends Activity implements IWXAPIEven
      * @param msg
      */
     private void sendResult(int statusCode, String msg) {
+        /**
+         * 发送本地广播到WxAssistActivity处理
+         */
         Intent intent = new Intent(WxAssistActivity.ACTION_RESULT);
         intent.putExtra(WxAssistActivity.BUNDLE_STATUS_CODE, statusCode);
         intent.putExtra(WxAssistActivity.BUNDLE_STATUS_MSG, msg);
@@ -128,6 +140,9 @@ public abstract class BaseWXEntryActivity extends Activity implements IWXAPIEven
     }
 
     protected boolean isAutoCreateWXAPI() {
+        /**
+         * 准确的意思应该是 是否<strong>允许</strong>自动创建WXAPI，上面的3个方法同理
+         */
         return true;
     }
 
